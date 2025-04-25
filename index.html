@@ -6,6 +6,20 @@
   <title>Trang của Bình Duy</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-color: #000;
+      --text-color: white;
+      --card-bg: #1a1a1a;
+      --accent: #00ffff;
+    }
+
+    body.day {
+      --bg-color: #f1f5f9;
+      --text-color: #111;
+      --card-bg: #ffffff;
+      --accent: #00bcd4;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -14,52 +28,53 @@
 
     body {
       font-family: 'Roboto', sans-serif;
-      background-color: #000;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       overflow: hidden;
       height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      color: white;
+      transition: background-color 0.5s, color 0.5s;
     }
 
     .welcome-box {
-      background-color: #1a1a1a;
-      padding: 50px 70px;
+      background-color: var(--card-bg);
+      padding: 50px 40px;
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      box-shadow: 0 0 30px var(--accent);
       text-align: center;
       z-index: 1;
+      max-width: 90%;
     }
 
     h1 {
-      font-size: 3rem;
-      color: #00ffff;
-      text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+      font-size: 2.5rem;
+      color: var(--accent);
+      text-shadow: 0 0 20px var(--accent);
       animation: glow 2s ease-in-out infinite alternate;
     }
 
-    p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin: 15px 0 10px;
+    #greeting {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      font-weight: 500;
     }
 
     #clock {
-      font-size: 1.1rem;
-      color: #00ffff;
+      font-size: 1rem;
+      color: var(--accent);
       margin-bottom: 20px;
-      text-shadow: 0 0 10px #00ffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
     }
 
     @keyframes glow {
-      from {
-        text-shadow: 0 0 10px #00ffff;
-      }
-      to {
-        text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
-      }
+      from { text-shadow: 0 0 10px var(--accent); }
+      to { text-shadow: 0 0 30px var(--accent), 0 0 60px var(--accent); }
     }
 
     .social-icons {
@@ -72,13 +87,15 @@
     .social-icons a img {
       width: 36px;
       height: 36px;
-      filter: drop-shadow(0 0 10px #00ccff);
-      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: drop-shadow(0 0 10px var(--accent));
+      transition: transform 0.3s ease;
+      background-color: #fff;
+      border-radius: 50%;
+      padding: 4px;
     }
 
     .social-icons a:hover img {
       transform: scale(1.2);
-      filter: drop-shadow(0 0 20px #ffffff);
     }
 
     .particle {
@@ -108,26 +125,26 @@
 
     #music-toggle {
       position: fixed;
-      bottom: 30px;
-      right: 30px;
+      bottom: 20px;
+      right: 20px;
       width: 60px;
       height: 60px;
-      background-color: #222;
+      background-color: var(--card-bg);
       border-radius: 50%;
-      border: 2px solid #00ffff;
+      border: 2px solid var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      box-shadow: 0 0 10px #00ffff;
+      box-shadow: 0 0 10px var(--accent);
       z-index: 10;
       transition: background-color 0.3s, box-shadow 0.3s;
     }
 
     #music-toggle.playing {
       animation: rotate 5s linear infinite;
-      background-color: #00ffff;
-      box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+      background-color: var(--accent);
+      box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
     }
 
     #music-toggle img {
@@ -140,18 +157,25 @@
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
     }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .welcome-box { padding: 30px 20px; }
+      #clock { font-size: 0.95rem; }
+      .social-icons a img { width: 30px; height: 30px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Hiệu ứng sao băng sáng rực -->
+  <!-- Sao băng -->
   <script>
     const numParticles = 60;
     for (let i = 0; i < numParticles; i++) {
       const p = document.createElement("div");
       p.className = "particle";
-      p.style.top = Math.random() * 100 + "vh"; 
-      p.style.left = Math.random() * 100 + "vw";
+      p.style.top = Math.random() * 100 + "vh";
+      p.style.left = Math.random() * -100 + "vw";
       p.style.animationDuration = 4 + Math.random() * 4 + "s";
       p.style.animationDelay = Math.random() * 8 + "s";
       document.body.appendChild(p);
@@ -161,7 +185,7 @@
   <!-- Nhạc nền -->
   <audio id="bgm" loop>
     <source src="music.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ âm thanh.
+    Trình duyệt không hỗ trợ âm thanh.
   </audio>
 
   <!-- Nút bật/tắt nhạc -->
@@ -172,28 +196,41 @@
   <!-- Nội dung chính -->
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
-    <p>Đến với trang web của <strong>Bình Duy</strong></p>
-    <div id="clock">🕒 Đang tải thời gian...</div>
+    <div id="greeting">Đang tính giờ...</div>
+    <div id="clock">🕒 --:--:--</div>
 
     <div class="social-icons">
       <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="background-color:#fff; border-radius:50%; padding:4px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
       </a>
       <a href="https://www.instagram.com/_npbduy.14/" target="_blank">
-        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="background-color:#fff; border-radius:50%; padding:4px;">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
       </a>
     </div>
   </div>
 
-  <!-- Đồng hồ thời gian -->
+  <!-- Thời gian + lời chào + đổi giao diện -->
   <script>
-    function updateClock() {
+    function updateClockAndGreeting() {
       const now = new Date();
+      const hours = now.getHours();
       const timeString = now.toLocaleTimeString('vi-VN');
       document.getElementById("clock").textContent = "🕒 " + timeString;
+
+      // Giao diện day/night
+      document.body.classList.toggle("day", hours >= 6 && hours < 18);
+
+      // Lời chào
+      let greeting = "Chào bạn!";
+      if (hours >= 5 && hours < 11) greeting = "Chào buổi sáng! ☀️";
+      else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
+      else if (hours >= 17 && hours < 22) greeting = "Chào buổi tối! 🌙";
+      else greeting = "Đã đến lúc nghỉ ngơi rồi đó! 😴";
+      document.getElementById("greeting").textContent = greeting;
     }
-    setInterval(updateClock, 1000);
-    updateClock();
+
+    setInterval(updateClockAndGreeting, 1000);
+    updateClockAndGreeting();
   </script>
 
   <!-- Điều khiển nhạc -->
@@ -211,7 +248,6 @@
       }
     });
 
-    // Tự động phát sau click lần đầu
     document.body.addEventListener("click", function initPlay() {
       audio.play().catch(e => console.log("Autoplay bị chặn:", e));
       toggleBtn.classList.add("playing");
