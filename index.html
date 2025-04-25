@@ -181,11 +181,34 @@
     <div id="greeting">Đang tính giờ...</div>
     <div id="clock">🕒 --:--:--</div>
 
-    <p style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;">
-      Hello, tui là <strong>Bình Duy</strong> 👋<br/>
-      Sinh nhật tui là <strong>14/02/2003</strong> 🎂<br/>
-      Bạn có thể liên hệ với tui qua 👇
-    </p>
+   <div id="intro" style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;"></div>
+      <script>
+  const introText = [
+    "Hello, tui là Bình Duy 👋",
+    "Sinh nhật tui là 14/02/2003 🎂",
+    "Bạn có thể liên hệ với tui qua 👇"
+  ];
+
+  const introDiv = document.getElementById("intro");
+  let line = 0;
+  let char = 0;
+
+  function typeLine() {
+    if (line < introText.length) {
+      if (char < introText[line].length) {
+        introDiv.innerHTML += introText[line].charAt(char);
+        char++;
+        setTimeout(typeLine, 40); 
+      } else {
+        introDiv.innerHTML += "<br/>";
+        line++;
+        char = 0;
+        setTimeout(typeLine, 400); 
+      }
+    }
+  }
+  typeLine();
+</script>
     <div class="social-icons">
   <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
@@ -194,7 +217,7 @@
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram">
   </a>
   <a href="https://zalo.me/0355563406" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968841.png" alt="Zalo"
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@14.12.3/icons/zalo.svg" alt="Zalo"
          style="background-color:#fff; border-radius:50%; padding:4px; width:36px; height:36px;">
   </a>
   <a href="https://t.me/binhduy1402" target="_blank">
