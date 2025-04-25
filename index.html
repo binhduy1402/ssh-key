@@ -4,14 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trang của Bình Duy</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Font + Icon -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-xX2V2kzovRgzLQzNV7cY7u90ruBHP8mRb+8x9ViAUVk1pbeYfefVWYqM8Z9DLjEzKZ1Q6lUOjTVEQam7i23ozA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" integrity="sha384-pklG1Zya6jVfBFT9gHt7F07M2ZgyA3wqW2FQ7A7o5vsEvnBqgWHQLTIkQ84OLaA1" crossorigin="anonymous">
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #e0f7ff, #f4faff);
+      background: radial-gradient(circle at top, #111 0%, #000 100%);
+      color: #fff;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -22,10 +22,10 @@
     }
 
     .welcome-box {
-      background-color: #fff;
+      background-color: #1a1a1a;
       padding: 50px 70px;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      box-shadow: 0 0 30px rgba(0, 0, 255, 0.3);
       text-align: center;
       animation: float 6s ease-in-out infinite;
     }
@@ -36,15 +36,16 @@
     }
 
     h1 {
-      color: #007bff;
       font-size: 3rem;
       margin-bottom: 15px;
+      color: #33ccff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
       animation: sparkle 2s infinite alternate;
     }
 
     p {
       font-size: 1.3rem;
-      color: #333;
+      color: #ccc;
       margin-bottom: 30px;
     }
 
@@ -55,28 +56,27 @@
     }
 
     .social-icons a {
-      color: #007bff;
+      color: #00ccff;
       font-size: 2rem;
-      transition: transform 0.3s, color 0.3s, box-shadow 0.3s;
-      text-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+      transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
+      text-shadow: 0 0 10px #00ccff;
     }
 
     .social-icons a:hover {
-      color: #0056b3;
+      color: #ffffff;
       transform: scale(1.2);
-      text-shadow: 0 0 20px rgba(0, 123, 255, 0.6);
+      text-shadow: 0 0 25px #00ffff;
     }
 
     @keyframes sparkle {
       0% {
-        text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
       }
       100% {
-        text-shadow: 0 0 20px #66ccff, 0 0 40px #66ccff;
+        text-shadow: 0 0 20px #66ffff, 0 0 40px #66ffff;
       }
     }
 
-    /* Light particles floating (optional effect) */
     .particles {
       position: absolute;
       top: 0;
@@ -85,8 +85,8 @@
       bottom: 0;
       pointer-events: none;
       background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-      opacity: 0.1;
-      animation: movebg 30s linear infinite;
+      opacity: 0.05;
+      animation: movebg 40s linear infinite;
     }
 
     @keyframes movebg {
