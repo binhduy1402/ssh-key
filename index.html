@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trang của Bình Duy</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <style>
     :root {
       --bg-color: #000;
@@ -13,7 +15,7 @@
       --accent: #00ffff;
     }
 
-    body.day {
+    body.light-mode {
       --bg-color: #f1f5f9;
       --text-color: #111;
       --card-bg: #ffffff;
@@ -37,6 +39,15 @@
       justify-content: center;
       position: relative;
       transition: background-color 0.5s, color 0.5s;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
 
     .welcome-box {
@@ -94,38 +105,10 @@
       transform: scale(1.2);
     }
 
-    .particle {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      background: gold;
-      border-radius: 50%;
-      opacity: 0.95;
-      box-shadow: 0 0 10px gold, 0 0 25px gold, 0 0 35px #ffd700;
-      animation: starFall 8s linear infinite;
-    }
-
-    @keyframes starFall {
-      0% {
-        transform: translate(0, 0) rotate(45deg);
-        opacity: 0;
-      }
-      10% {
-        opacity: 1;
-      }
-      100% {
-        transform: translate(100vw, 100vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    #music-toggle {
+    #music-toggle, #mode-toggle {
       position: fixed;
-      bottom: 20px;
-      right: 20px;
       width: 60px;
       height: 60px;
-      background-color: var(--card-bg);
       border-radius: 50%;
       border: 2px solid var(--accent);
       display: flex;
@@ -135,6 +118,17 @@
       box-shadow: 0 0 10px var(--accent);
       z-index: 10;
       transition: background-color 0.3s, box-shadow 0.3s;
+      background-color: var(--card-bg);
+    }
+
+    #music-toggle {
+      bottom: 20px;
+      right: 20px;
+    }
+
+    #mode-toggle {
+      bottom: 20px;
+      left: 20px;
     }
 
     #music-toggle.playing {
@@ -143,7 +137,7 @@
       box-shadow: 0 0 20px var(--accent), 0 0 40px var(--accent);
     }
 
-    #music-toggle img {
+    #music-toggle img, #mode-toggle img {
       width: 28px;
       height: 28px;
       filter: invert(1);
@@ -163,20 +157,7 @@
   </style>
 </head>
 <body>
-
-  <!-- Sao băng -->
-  <script>
-    const numParticles = 60;
-    for (let i = 0; i < numParticles; i++) {
-      const p = document.createElement("div");
-      p.className = "particle";
-      p.style.top = Math.random() * 100 + "vh";
-      p.style.left = Math.random() * -100 + "vw";
-      p.style.animationDuration = 4 + Math.random() * 4 + "s";
-      p.style.animationDelay = Math.random() * 8 + "s";
-      document.body.appendChild(p);
-    }
-  </script>
+  <div id="particles-js"></div>
 
   <!-- Nhạc nền -->
   <audio id="bgm" loop>
@@ -189,13 +170,22 @@
     <img src="https://cdn-icons-png.flaticon.com/512/727/727269.png" alt="Nốt nhạc" />
   </div>
 
+  <!-- Nút dark/light -->
+  <div id="mode-toggle" title="Chuyển sáng/tối">
+    <img id="mode-icon" src="https://cdn-icons-png.flaticon.com/512/869/869869.png" alt="Mode">
+  </div>
+
   <!-- Nội dung chính -->
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
     <div id="greeting">Đang tính giờ...</div>
     <div id="clock">🕒 --:--:--</div>
 
-    <div id="intro" style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;"></div>
+    <p style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;">
+      Hello, tui là <strong>Bình Duy</strong> 👋<br/>
+      Sinh nhật tui là <strong>14/02/2003</strong> 🎂<br/>
+      Bạn có thể liên hệ với tui qua 👇
+    </p>
 
     <div class="social-icons">
       <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
@@ -206,83 +196,86 @@
       </a>
     </div>
   </div>
+<script>
+  // Đồng hồ và lời chào theo giờ
+  function updateClockAndGreeting() {
+    const now = new Date();
+    const hours = now.getHours();
+    const timeString = now.toLocaleTimeString('vi-VN');
+    document.getElementById("clock").textContent = "🕒 " + timeString;
 
-  <!-- Script: đồng hồ & lời chào -->
-  <script>
-    function updateClockAndGreeting() {
-      const now = new Date();
-      const hours = now.getHours();
-      const timeString = now.toLocaleTimeString('vi-VN');
-      document.getElementById("clock").textContent = "🕒 " + timeString;
+    let greeting = "Chào bạn!";
+    if (hours >= 5 && hours < 11) greeting = "Chào buổi sáng! ☀️";
+    else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
+    else if (hours >= 17 && hours < 22) greeting = "Chào buổi tối! 🌙";
+    else greeting = "Đã đến lúc nghỉ ngơi rồi đó! 😴";
+    document.getElementById("greeting").textContent = greeting;
+  }
+  setInterval(updateClockAndGreeting, 1000);
+  updateClockAndGreeting();
+</script>
 
-      // Giao diện sáng/tối
-      document.body.classList.toggle("day", hours >= 6 && hours < 18);
+<script>
+  // Nhạc
+  const audio = document.getElementById("bgm");
+  const toggleBtn = document.getElementById("music-toggle");
 
-      // Lời chào theo giờ
-      let greeting = "Chào bạn!";
-      if (hours >= 5 && hours < 11) greeting = "Chào buổi sáng! ☀️";
-      else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
-      else if (hours >= 17 && hours < 22) greeting = "Chào buổi tối! 🌙";
-      else greeting = "Đã đến lúc nghỉ ngơi rồi đó! 😴";
-      document.getElementById("greeting").textContent = greeting;
-    }
-
-    setInterval(updateClockAndGreeting, 1000);
-    updateClockAndGreeting();
-  </script>
-
-  <!-- Script: typing hiệu ứng giới thiệu -->
-  <script>
-    const introText = [
-      "Hello, tui là Bình Duy 👋",
-      "Sinh nhật tui là 14/02/2003 🎂",
-      "Bạn có thể liên hệ với tui qua 👇"
-    ];
-
-    const introDiv = document.getElementById("intro");
-
-    let line = 0;
-    let char = 0;
-
-    function typeLine() {
-      if (line < introText.length) {
-        if (char < introText[line].length) {
-          introDiv.innerHTML += introText[line].charAt(char);
-          char++;
-          setTimeout(typeLine, 40);
-        } else {
-          introDiv.innerHTML += "<br/>";
-          line++;
-          char = 0;
-          setTimeout(typeLine, 400);
-        }
-      }
-    }
-
-    typeLine();
-  </script>
-
-  <!-- Script: điều khiển nhạc -->
-  <script>
-    const audio = document.getElementById("bgm");
-    const toggleBtn = document.getElementById("music-toggle");
-
-    toggleBtn.addEventListener("click", () => {
-      if (audio.paused) {
-        audio.play();
-        toggleBtn.classList.add("playing");
-      } else {
-        audio.pause();
-        toggleBtn.classList.remove("playing");
-      }
-    });
-
-    document.body.addEventListener("click", function initPlay() {
-      audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+  toggleBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
       toggleBtn.classList.add("playing");
-      document.body.removeEventListener("click", initPlay);
-    });
-  </script>
+    } else {
+      audio.pause();
+      toggleBtn.classList.remove("playing");
+    }
+  });
 
-</body>
-</html>
+  document.body.addEventListener("click", function initPlay() {
+    audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+    toggleBtn.classList.add("playing");
+    document.body.removeEventListener("click", initPlay);
+  });
+</script>
+
+<script>
+  // Dark/Light Toggle
+  const modeToggle = document.getElementById("mode-toggle");
+  const modeIcon = document.getElementById("mode-icon");
+
+  modeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("light-mode");
+    const isLight = document.body.classList.contains("light-mode");
+    modeIcon.src = isLight
+      ? "https://cdn-icons-png.flaticon.com/512/869/869869.png"  // Moon
+      : "https://cdn-icons-png.flaticon.com/512/169/169367.png"; // Sun
+  });
+</script>
+
+<script>
+  // Particles.js config
+  particlesJS("particles-js", {
+    "particles": {
+      "number": { "value": 60 },
+      "size": { "value": 2 },
+      "color": { "value": "#ffd700" },
+      "line_linked": {
+        "enable": true,
+        "distance": 100,
+        "color": "#ffd700",
+        "opacity": 0.4,
+        "width": 1
+      },
+      "move": {
+        "enable": true,
+        "speed": 2
+      }
+    },
+    "interactivity": {
+      "detect_on": "canvas",
+      "events": {
+        "onhover": { "enable": true, "mode": "repulse" },
+        "onclick": { "enable": true, "mode": "push" }
+      }
+    }
+  });
+</script>
