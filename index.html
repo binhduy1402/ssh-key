@@ -105,7 +105,7 @@
 </head>
 <body>
 
-  <!-- Nền có chấm vàng động -->
+  <!-- Hiệu ứng chấm vàng động -->
   <script>
     const numParticles = 50;
     for (let i = 0; i < numParticles; i++) {
@@ -119,12 +119,13 @@
     }
   </script>
 
-  <!-- Nhạc nền autoplay sau khi click -->
+  <!-- Nhạc nền từ Pixabay -->
   <audio id="bgm" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c05eebf1a.mp3" type="audio/mpeg">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/28/audio_3ab4e396f2.mp3?filename=lofi-background-music-314199.mp3" type="audio/mpeg">
     Trình duyệt của bạn không hỗ trợ âm thanh.
   </audio>
   <script>
+    // Phát nhạc sau khi click lần đầu
     document.body.addEventListener("click", function () {
       const audio = document.getElementById("bgm");
       audio.play().catch(e => console.log("Autoplay bị chặn:", e));
@@ -147,7 +148,7 @@
     </div>
   </div>
 
-  <!-- Đồng hồ real-time -->
+  <!-- Đồng hồ cập nhật real-time -->
   <script>
     function updateClock() {
       const now = new Date();
