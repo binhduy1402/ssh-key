@@ -119,19 +119,17 @@
     }
   </script>
 
-  <!-- Nhạc nền từ Pixabay -->
   <audio id="bgm" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/28/audio_3ab4e396f2.mp3?filename=lofi-background-music-314199.mp3" type="audio/mpeg">
-    Trình duyệt của bạn không hỗ trợ âm thanh.
-  </audio>
-  <script>
-    // Phát nhạc sau khi click lần đầu
-    document.body.addEventListener("click", function () {
-      const audio = document.getElementById("bgm");
-      audio.play().catch(e => console.log("Autoplay bị chặn:", e));
-    }, { once: true });
-  </script>
+  <source src="mucsic.mp3" type="audio/mpeg">
+  Trình duyệt của bạn không hỗ trợ âm thanh.
+</audio>
 
+<script>
+  document.body.addEventListener("click", function () {
+    const audio = document.getElementById("bgm");
+    audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+  }, { once: true });
+</script>
   <!-- Nội dung chính -->
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
