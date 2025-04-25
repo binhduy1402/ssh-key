@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang của Bình Duy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #000;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      color: white;
+    }
+
+    .welcome-box {
+      background-color: #1a1a1a;
+      padding: 50px 70px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #ccc;
+      margin: 15px 0 10px;
+    }
+
+    #clock {
+      font-size: 1.1rem;
+      color: #00ffff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+      }
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 15px;
+    }
+
+    .social-icons a img {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 10px #00ccff);
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .social-icons a:hover img {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 20px #ffffff);
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background-color: gold;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh) scale(1);
+        opacity: 1;
+      }
+    }
+
+    /* Nút nhạc */
+    #music-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #222;
+      border-radius: 50%;
+      border: 2px solid #00ffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+      z-index: 10;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #music-toggle.playing {
+      animation: rotate 5s linear infinite;
+      background-color: #00ffff;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    }
+
+    #music-toggle img {
+      width: 28px;
+      height: 28px;
+      filter: invert(1);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hiệu ứng chấm vàng động -->
+  <script>
+    const numParticles = 50;
+    for (let i = 0; i < numParticles; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = 10 + Math.random() * 10 + "s";
+      p.style.animationDelay = Math.random() * 5 + "s";
+      p.style.opacity = Math.random();
+      document.body.appendChild(p);
+    }
+  </script>
+
+  <!-- Nhạc nền -->
+  <audio id="bgm" loop>
+    <source src="music.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
+  </audio>
+
+  <!-- Nút bật/tắt nhạc -->
+  <div id="music-toggle" title="Bật/tắt nhạc">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Loa" />
+  </div>
+
+  <!-- Nội dung chính -->
+  <div class="welcome-box">
+    <h1>✨ Chào mừng!</h1>
+    <p>Đến với trang web của <strong>Bình Duy</strong></p>
+    <div id="clock">🕒 Đang tải thời gian...</div>
+
+    <div class="social-icons">
+      <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="background-color:#fff; border-radius:50%; padding:4px;">
+      </a>
+      <a href="https://www.instagram.com/_npbduy.14/" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="background-color:#fff; border-radius:50%; padding:4px;">
+      </a>
+    </div>
+  </div>
+
+  <!-- Đồng hồ cập nhật thời gian -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("clock").textContent = "🕒 " + timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+
+  <!-- Script bật/tắt nhạc -->
+  <script>
+    const audio = document.getElementById("bgm");
+    const toggleBtn = document.getElementById("music-toggle");
+
+    toggleBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        toggleBtn.classList.add("playing");
+      } else {
+        audio.pause();
+        toggleBtn.classList.remove("playing");
+      }
+    });
+
+    // Tự động phát sau click lần đầu
+    document.body.addEventListener("click", function initPlay() {
+      audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+      toggleBtn.classList.add("playing");
+      document.body.removeEventListener("click", initPlay);
+    });
+  </script>
+
+</body>
+</html>
