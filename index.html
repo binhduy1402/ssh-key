@@ -83,25 +83,25 @@
 
     .particle {
       position: absolute;
-      width: 3px;
-      height: 3px;
-      background-color: gold;
+      width: 4px;
+      height: 4px;
+      background: gold;
       border-radius: 50%;
-      opacity: 0.9;
-      box-shadow: 0 0 8px gold, 0 0 15px gold;
-      animation: shooting 8s linear infinite;
+      opacity: 0.95;
+      box-shadow: 0 0 10px gold, 0 0 25px gold, 0 0 35px #ffd700;
+      animation: starFall 8s linear infinite;
     }
 
-    @keyframes shooting {
+    @keyframes starFall {
       0% {
-        transform: translate(0, 100vh) rotate(45deg);
+        transform: translate(0, 0) rotate(45deg);
         opacity: 0;
       }
       10% {
         opacity: 1;
       }
       100% {
-        transform: translate(100vw, -100vh) rotate(45deg);
+        transform: translate(100vw, 100vh) rotate(45deg);
         opacity: 0;
       }
     }
@@ -144,16 +144,16 @@
 </head>
 <body>
 
-  <!-- Sao băng chấm vàng -->
+  <!-- Hiệu ứng sao băng sáng rực -->
   <script>
-    const numParticles = 50;
+    const numParticles = 60;
     for (let i = 0; i < numParticles; i++) {
       const p = document.createElement("div");
       p.className = "particle";
-      p.style.top = Math.random() * 100 + "vh";
+      p.style.top = Math.random() * -50 + "vh"; // bắt đầu trên cao
       p.style.left = Math.random() * 100 + "vw";
-      p.style.animationDuration = 4 + Math.random() * 6 + "s";
-      p.style.animationDelay = Math.random() * 10 + "s";
+      p.style.animationDuration = 4 + Math.random() * 4 + "s";
+      p.style.animationDelay = Math.random() * 8 + "s";
       document.body.appendChild(p);
     }
   </script>
@@ -185,7 +185,7 @@
     </div>
   </div>
 
-  <!-- Đồng hồ -->
+  <!-- Đồng hồ thời gian -->
   <script>
     function updateClock() {
       const now = new Date();
