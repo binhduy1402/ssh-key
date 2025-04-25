@@ -101,6 +101,42 @@
         opacity: 1;
       }
     }
+
+    /* Nút nhạc */
+    #music-toggle {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      background-color: #222;
+      border-radius: 50%;
+      border: 2px solid #00ffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffff;
+      z-index: 10;
+      transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    #music-toggle.playing {
+      animation: rotate 5s linear infinite;
+      background-color: #00ffff;
+      box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+    }
+
+    #music-toggle img {
+      width: 28px;
+      height: 28px;
+      filter: invert(1);
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -119,17 +155,17 @@
     }
   </script>
 
+  <!-- Nhạc nền -->
   <audio id="bgm" loop>
-  <source src="mucsic.mp3" type="audio/mpeg">
-  Trình duyệt của bạn không hỗ trợ âm thanh.
-</audio>
+    <source src="music.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
+  </audio>
 
-<script>
-  document.body.addEventListener("click", function () {
-    const audio = document.getElementById("bgm");
-    audio.play().catch(e => console.log("Autoplay bị chặn:", e));
-  }, { once: true });
-</script>
+  <!-- Nút bật/tắt nhạc -->
+  <div id="music-toggle" title="Bật/tắt nhạc">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727245.png" alt="Loa" />
+  </div>
+
   <!-- Nội dung chính -->
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
@@ -146,7 +182,7 @@
     </div>
   </div>
 
-  <!-- Đồng hồ cập nhật real-time -->
+  <!-- Đồng hồ cập nhật thời gian -->
   <script>
     function updateClock() {
       const now = new Date();
@@ -155,6 +191,29 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+  </script>
+
+  <!-- Script bật/tắt nhạc -->
+  <script>
+    const audio = document.getElementById("bgm");
+    const toggleBtn = document.getElementById("music-toggle");
+
+    toggleBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+        toggleBtn.classList.add("playing");
+      } else {
+        audio.pause();
+        toggleBtn.classList.remove("playing");
+      }
+    });
+
+    // Tự động phát sau click lần đầu
+    document.body.addEventListener("click", function initPlay() {
+      audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+      toggleBtn.classList.add("playing");
+      document.body.removeEventListener("click", initPlay);
+    });
   </script>
 
 </body>
