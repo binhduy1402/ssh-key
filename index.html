@@ -4,112 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Trang của Bình Duy</title>
-  <!-- Font + Icon -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" integrity="sha384-pklG1Zya6jVfBFT9gHt7F07M2ZgyA3wqW2FQ7A7o5vsEvnBqgWHQLTIkQ84OLaA1" crossorigin="anonymous">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Roboto', sans-serif;
-      background: radial-gradient(circle at top, #111 0%, #000 100%);
-      color: #fff;
+      background-color: #000;
+      overflow: hidden;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
-      overflow: hidden;
+      position: relative;
+      color: white;
     }
 
     .welcome-box {
       background-color: #1a1a1a;
       padding: 50px 70px;
       border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0, 0, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
       text-align: center;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      z-index: 1;
     }
 
     h1 {
       font-size: 3rem;
-      margin-bottom: 15px;
-      color: #33ccff;
-      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      animation: sparkle 2s infinite alternate;
+      color: #00ffff;
+      text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
     }
 
     p {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: #ccc;
-      margin-bottom: 30px;
+      margin: 15px 0 30px;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffff;
+      }
+      to {
+        text-shadow: 0 0 30px #00ffff, 0 0 60px #00ffff;
+      }
     }
 
     .social-icons {
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 25px;
+      margin-top: 15px;
     }
 
-    .social-icons a {
-      color: #00ccff;
-      font-size: 2rem;
-      transition: transform 0.3s, color 0.3s, text-shadow 0.3s;
-      text-shadow: 0 0 10px #00ccff;
+    .social-icons a img {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(0 0 10px #00ccff);
+      transition: transform 0.3s ease, filter 0.3s ease;
     }
 
-    .social-icons a:hover {
-      color: #ffffff;
+    .social-icons a:hover img {
       transform: scale(1.2);
-      text-shadow: 0 0 25px #00ffff;
+      filter: drop-shadow(0 0 20px #ffffff);
     }
 
-    @keyframes sparkle {
-      0% {
-        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
-      }
-      100% {
-        text-shadow: 0 0 20px #66ffff, 0 0 40px #66ffff;
-      }
-    }
-
-    .particles {
+    /* Particles */
+    .particle {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      pointer-events: none;
-      background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
-      opacity: 0.05;
-      animation: movebg 40s linear infinite;
+      width: 6px;
+      height: 6px;
+      background-color: gold;
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: float linear infinite;
     }
 
-    @keyframes movebg {
-      0% { background-position: 0 0; }
-      100% { background-position: 1000px 1000px; }
+    @keyframes float {
+      from {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(-10vh) scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="particles"></div>
+
+  <!-- Nền có chấm li ti vàng -->
+  <script>
+    const numParticles = 50;
+    for (let i = 0; i < numParticles; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "vw";
+      p.style.animationDuration = 10 + Math.random() * 10 + "s";
+      p.style.animationDelay = Math.random() * 5 + "s";
+      p.style.opacity = Math.random();
+      document.body.appendChild(p);
+    }
+  </script>
 
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
     <p>Đến với trang web của <strong>Bình Duy</strong></p>
 
     <div class="social-icons">
-      <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank" title="Facebook">
-        <i class="fab fa-facebook"></i>
+      <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook" style="background-color:#fff; border-radius:50%; padding:4px;">
       </a>
-      <a href="https://www.instagram.com/_npbduy.14/" target="_blank" title="Instagram">
-        <i class="fab fa-instagram"></i>
+      <a href="https://www.instagram.com/_npbduy.14/" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram" style="background-color:#fff; border-radius:50%; padding:4px;">
       </a>
     </div>
   </div>
+
 </body>
 </html>
