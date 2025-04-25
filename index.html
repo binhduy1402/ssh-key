@@ -66,10 +66,6 @@
       font-size: 1rem;
       color: var(--accent);
       margin-bottom: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 5px;
     }
 
     @keyframes glow {
@@ -81,7 +77,7 @@
       display: flex;
       justify-content: center;
       gap: 25px;
-      margin-top: 15px;
+      margin-top: 20px;
     }
 
     .social-icons a img {
@@ -199,6 +195,8 @@
     <div id="greeting">Đang tính giờ...</div>
     <div id="clock">🕒 --:--:--</div>
 
+    <div id="intro" style="margin-top: 15px; font-size: 1.05rem; line-height: 1.6;"></div>
+
     <div class="social-icons">
       <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
         <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook">
@@ -209,7 +207,7 @@
     </div>
   </div>
 
-  <!-- Thời gian + lời chào + đổi giao diện -->
+  <!-- Script: đồng hồ & lời chào -->
   <script>
     function updateClockAndGreeting() {
       const now = new Date();
@@ -217,10 +215,10 @@
       const timeString = now.toLocaleTimeString('vi-VN');
       document.getElementById("clock").textContent = "🕒 " + timeString;
 
-      // Giao diện day/night
+      // Giao diện sáng/tối
       document.body.classList.toggle("day", hours >= 6 && hours < 18);
 
-      // Lời chào
+      // Lời chào theo giờ
       let greeting = "Chào bạn!";
       if (hours >= 5 && hours < 11) greeting = "Chào buổi sáng! ☀️";
       else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
@@ -233,7 +231,38 @@
     updateClockAndGreeting();
   </script>
 
-  <!-- Điều khiển nhạc -->
+  <!-- Script: typing hiệu ứng giới thiệu -->
+  <script>
+    const introText = [
+      "Hello, tui là Bình Duy 👋",
+      "Sinh nhật tui là 14/02/2003 🎂",
+      "Bạn có thể liên hệ với tui qua 👇"
+    ];
+
+    const introDiv = document.getElementById("intro");
+
+    let line = 0;
+    let char = 0;
+
+    function typeLine() {
+      if (line < introText.length) {
+        if (char < introText[line].length) {
+          introDiv.innerHTML += introText[line].charAt(char);
+          char++;
+          setTimeout(typeLine, 40);
+        } else {
+          introDiv.innerHTML += "<br/>";
+          line++;
+          char = 0;
+          setTimeout(typeLine, 400);
+        }
+      }
+    }
+
+    typeLine();
+  </script>
+
+  <!-- Script: điều khiển nhạc -->
   <script>
     const audio = document.getElementById("bgm");
     const toggleBtn = document.getElementById("music-toggle");
