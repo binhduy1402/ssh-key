@@ -161,11 +161,49 @@
   <div id="particles-js"></div>
 
   <!-- Nhạc nền -->
-  <audio id="bgm" loop>
-    <source id="audio-source" src="music/music1.mp3" type="audio/mpeg">
-    Trình duyệt không hỗ trợ âm thanh.
-  </audio>
+<audio id="bgm" loop>
+  <source src="music/music1.mp3" type="audio/mpeg">
+  Trình duyệt không hỗ trợ âm thanh.
+</audio>
+<script>
+  const audio = document.getElementById("bgm");
+  const musicFiles = [
+    "music/music1.mp3",
+    "music/music2.mp3",
+    "music/music3.mp3",
+    "music/music4.mp3",
+    "music/music5.mp3",
+    "music/music6.mp3"
+  ];
 
+  // Chọn ngẫu nhiên bài nhạc từ mảng
+  function chooseRandomMusic() {
+    const randomIndex = Math.floor(Math.random() * musicFiles.length);
+    audio.src = musicFiles[randomIndex];
+  }
+
+  // Gọi hàm mỗi khi trang được tải
+  chooseRandomMusic();
+
+  const toggleBtn = document.getElementById("music-toggle");
+
+  toggleBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+      toggleBtn.classList.add("playing");
+    } else {
+      audio.pause();
+      toggleBtn.classList.remove("playing");
+    }
+  });
+
+  document.body.addEventListener("click", function initPlay() {
+    audio.play().catch(e => console.log("Autoplay bị chặn:", e));
+    toggleBtn.classList.add("playing");
+    document.body.removeEventListener("click", initPlay);
+  });
+</script>
+  
   <!-- Nút bật/tắt nhạc -->
   <div id="music-toggle" title="Bật/tắt nhạc">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@14.12.3/icons/applemusic.svg" alt="Nốt nhạc" />
