@@ -43,7 +43,14 @@
     p {
       font-size: 1.2rem;
       color: #ccc;
-      margin: 15px 0 30px;
+      margin: 15px 0 10px;
+    }
+
+    #clock {
+      font-size: 1.1rem;
+      color: #00ffff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ffff;
     }
 
     @keyframes glow {
@@ -74,7 +81,6 @@
       filter: drop-shadow(0 0 20px #ffffff);
     }
 
-    /* Particles */
     .particle {
       position: absolute;
       width: 6px;
@@ -99,7 +105,7 @@
 </head>
 <body>
 
-  <!-- Nền có chấm li ti vàng -->
+  <!-- Nền có chấm vàng động -->
   <script>
     const numParticles = 50;
     for (let i = 0; i < numParticles; i++) {
@@ -113,9 +119,17 @@
     }
   </script>
 
+  <!-- Nhạc nền autoplay -->
+  <audio autoplay loop hidden>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9c05eebf1a.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ âm thanh.
+  </audio>
+
+  <!-- Nội dung chính -->
   <div class="welcome-box">
     <h1>✨ Chào mừng!</h1>
     <p>Đến với trang web của <strong>Bình Duy</strong></p>
+    <div id="clock">⏳ Đang tải thời gian...</div>
 
     <div class="social-icons">
       <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank">
@@ -126,6 +140,17 @@
       </a>
     </div>
   </div>
+
+  <!-- Đồng hồ real-time -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('vi-VN');
+      document.getElementById("clock").textContent = "🕒 " + timeString;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
 
 </body>
 </html>
