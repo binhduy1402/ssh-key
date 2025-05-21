@@ -90,6 +90,20 @@
     #reward.show { opacity: 1; transform: scale(1); }
     #message-box { color: #ff7070; font-size: 1rem; margin-top: 15px; font-weight: 600; opacity: 0; transition: opacity 0.5s; }
     #message-box.show { opacity: 1; }
+    #scroll-hint {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: linear-gradient(to right, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glow 1.5s ease-in-out infinite alternate;
+    white-space: pre-wrap;
+  }
+  @keyframes glow {
+    from { text-shadow: 0 0 5px #00ffff; }
+    to   { text-shadow: 0 0 20px #ff00ff; }
+  }
   </style>
 </head>
 <body>
@@ -191,6 +205,18 @@
       }
     }
     typeLine();
+    const scrollHintText = "Khoan khoan, ở dưới còn điều bất ngờ cho bạn đó !!!";
+    const scrollHintDiv = document.getElementById("scroll-hint");
+    let scrollChar = 0;
+    function typeScrollHint() {
+      if (scrollChar < scrollHintText.length) {
+        scrollHintDiv.innerHTML += scrollHintText.charAt(scrollChar);
+        scrollChar++;
+        setTimeout(typeScrollHint, 50);
+      }
+    } 
+    const totalTypingTime = introText.reduce((sum, line) => sum + line.length * 40 + 400, 0);
+    setTimeout(typeScrollHint, totalTypingTime);
 
     function updateClockAndGreeting() {
       const now = new Date();
