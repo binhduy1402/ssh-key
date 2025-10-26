@@ -187,9 +187,9 @@
     });
 
     const introText = [
-      "Hello, Bình Duy đây 👋",
-      "14/02/2003",
-      "Bạn có thể tìm thấy tui ở đây ⬇️"
+      "Hello, Bình Duy đây !",
+      "Tìm được đến đây thì cũng dữ dội rùi á",
+      "Bạn có thể tìm thấy tui ở đây nè ⬇️"
     ];
     const introDiv = document.getElementById("intro");
     let line = 0, char = 0;
@@ -229,8 +229,8 @@
       let greeting = "Chào bạn!";
       if (hours >= 5 && hours < 11) greeting = "Buổi sáng tràn đầy năng lượng nhá ! ☀️";
       else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
-      else if (hours >= 17 && hours < 22) greeting = "Chào buổi tối! 🌙";
-      else greeting = "Đã đến lúc nghỉ ngơi rồi đó! 😴";
+      else if (hours >= 17 && hours < 22) greeting = "Buổi tối ấm áp nè! 🌙";
+      else greeting = "Đi ngủ đi nha khuya rùi đó ! 😴";
       document.getElementById("greeting").textContent = greeting;
     }
     setInterval(updateClockAndGreeting, 1000);
