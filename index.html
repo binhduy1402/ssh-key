@@ -175,18 +175,24 @@
     }
 
     /* ============ NÚT NHẠC + CHẾ ĐỘ ============ */
-    #music-toggle, #mode-toggle {
-      position: fixed;
-      width: 60px; height: 60px;
-      border-radius: 50%;
-      border: 2px solid var(--accent);
-      background: var(--card-bg);
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 0 10px var(--accent);
-      cursor: pointer;
-      transition: 0.4s;
-      z-index: 1000;
-      backdrop-filter: blur(6px);
+    body.light-mode #music-toggle {
+      background: rgba(0, 0, 0, 0.05); /* nền xám nhạt */
+      border-color: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+    
+    body.light-mode #music-toggle img {
+      filter: invert(0); /* để icon màu tối */
+    }
+    
+    /* Khi đang phát nhạc ở light mode */
+    body.light-mode #music-toggle.playing {
+      background: var(--accent);
+      box-shadow: 0 0 15px var(--accent);
+    }
+    
+    body.light-mode #music-toggle.playing img {
+      filter: invert(1); /* icon trắng trên nền xanh */
     }
 
     #music-toggle { bottom: 20px; right: 20px; }
