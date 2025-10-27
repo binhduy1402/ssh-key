@@ -11,15 +11,19 @@
   <style>
     :root {
       --bg-color: #000;
-      --text-color: white;
+      --text-color: #ffffff;
+      --subtext-color: #b5eaff;
+      --muted-text: #dddddd;
       --card-bg: #1a1a1a;
       --accent: #00ffff;
     }
     body.light-mode {
       --bg-color: #f1f5f9;
       --text-color: #111;
+      --subtext-color: #006b75;
+      --muted-text: #555;
       --card-bg: #ffffff;
-      --accent: #00bcd4;
+      --accent: #00bcd4;;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -37,43 +41,33 @@
     #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
     .welcome-box {
       #greeting, #clock, #intro {
-  font-family: 'Nunito', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  color: #ffffff;
-  text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
-}
-
-#greeting {
-  font-size: 1.2rem;
-  color: #aeefff;
-  font-weight: 600;
-}
-
-#clock {
-  font-family: 'Quicksand', sans-serif;
-  font-size: 1rem;
-  color: #dddddd;
-}
-
-#intro {
-  margin-top: 20px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #f0f0f0;
-  text-shadow: 0 0 3px rgba(255,255,255,0.2);
-}
-      background-color: var(--card-bg);
-      padding: 40px 30px;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px var(--accent);
-      text-align: center;
-      margin-top: 80px;
-      z-index: 1;
-      width: 90%;
-      max-width: 600px;
-    }
+        font-family: 'Nunito', sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        color: var(--text-color);
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+      }
+      
+      #greeting {
+        font-size: 1.2rem;
+        color: var(--subtext-color);
+        font-weight: 600;
+      }
+      
+      #clock {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 1rem;
+        color: var(--muted-text);
+      }
+      
+      #intro {
+        margin-top: 20px;
+        font-family: 'Nunito', sans-serif;
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: var(--text-color);
+        text-shadow: 0 0 3px rgba(255,255,255,0.2);
+      }
     h1 {
       font-size: 2.5rem;
       color: var(--accent);
