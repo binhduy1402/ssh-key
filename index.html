@@ -9,7 +9,6 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
-    /* ============ MÀU CHỦ ĐỀ ============ */
     :root {
       --bg-color: #000;
       --text-color: #ffffff;
@@ -41,7 +40,6 @@
       transition: background 1s ease, color 0.5s ease;
     }
 
-    /* ============ NỀN GALAXY ============ */
     body::before {
       content: '';
       position: fixed;
@@ -57,7 +55,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* ============ HIỆU ỨNG AURORA ============ */
     body::after {
       content: '';
       position: fixed;
@@ -79,7 +76,6 @@
       100% { background-position: 0% 50%; }
     }
 
-    /* ============ CHẾ ĐỘ SÁNG ============ */
   body.light-mode::before {
       background: linear-gradient(
         -45deg,
@@ -106,14 +102,12 @@
       mix-blend-mode: overlay;
     }
 
-    /* Canvas hạt */
     #particles-js {
       position: fixed;
       inset: 0;
       z-index: 1;
     }
 
-    /* ============ HỘP CHÍNH ============ */
     .welcome-box {
       background: var(--card-bg);
       padding: 40px 30px;
@@ -156,7 +150,6 @@
       color: var(--text-color);
     }
 
-    /* ============ ICON LIÊN HỆ ============ */
     .social-icons {
       display: flex;
       justify-content: center;
@@ -176,7 +169,6 @@
       box-shadow: 0 0 15px var(--accent);
     }
 
-    /* ============ NÚT NHẠC + CHUYỂN MODE ============ */
     #music-toggle, #mode-toggle {
       position: fixed;
       width: 60px; height: 60px;
@@ -205,13 +197,11 @@
     }
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    /* ⚪ FIX cho LIGHT MODE: icon đậm, nền xám nhạt; khi playing icon trắng */
     body.light-mode #music-toggle { background: rgba(0,0,0,0.05); box-shadow: 0 0 8px var(--accent); }
     body.light-mode #music-toggle img { filter: invert(0); }
     body.light-mode #music-toggle.playing { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
     body.light-mode #music-toggle.playing img { filter: invert(1); }
 
-    /* ============ QUÀ ============ */
     #gift-section {
       margin: 100px auto;
       text-align: center;
@@ -301,7 +291,6 @@
   </div>
 
   <script>
-    /* 🎵 Nhạc nền random */
     window.onload = function() {
       const audio = document.getElementById("bgm");
       const musicFiles = [
@@ -333,7 +322,6 @@
       });
     };
 
-    /* 🌗 Chuyển chế độ sáng/tối */
     const modeToggle = document.getElementById("mode-toggle");
     const modeIcon = document.getElementById("mode-icon");
     modeToggle.addEventListener("click", () => {
@@ -344,7 +332,6 @@
         : "https://cdn-icons-png.flaticon.com/512/869/869869.png"; // sun
     });
 
-    /* ⏰ Giờ & lời chào */
     function updateClockAndGreeting() {
       const now = new Date();
       const hours = now.getHours();
@@ -361,7 +348,6 @@
     setInterval(updateClockAndGreeting, 1000);
     updateClockAndGreeting();
 
-    /* ✨ Gõ chữ intro */
     const introText = [
       "Hello, Bình Duy đây !",
       "Tìm được đến đây thì soi cũng dữ dội rùi á",
@@ -392,8 +378,7 @@
     }
     const totalTypingTime = introText.reduce((sum, line) => sum + line.length * 40 + 400, 0);
     setTimeout(typeScrollHint, totalTypingTime);
-
-    /* 🎁 Quà tặng */
+    
     const giftWrapper = document.getElementById("gift-wrapper");
     const rewardDiv = document.getElementById("reward");
     const messageBox = document.getElementById("message-box");
@@ -419,14 +404,12 @@
       }
     });
 
-    /* 🪄 Hiện phần quà khi scroll */
     window.addEventListener("scroll", () => {
       const gift = document.getElementById("gift-section");
       const rect = gift.getBoundingClientRect();
       if (rect.top < window.innerHeight - 100) gift.classList.add("visible");
     });
 
-    /* 🌌 Particles nền */
     particlesJS("particles-js", {
       particles: {
         number: { value: 60 },
