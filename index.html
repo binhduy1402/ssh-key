@@ -8,7 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
-    /* 🌌 ====== MÀU BIẾN CHỦ ĐỀ ====== */
+    /* ============ MÀU CHỦ ĐỀ ============ */
     :root {
       --bg-color: #000;
       --text-color: #ffffff;
@@ -23,17 +23,15 @@
       --text-color: #111;
       --subtext-color: #007b83;
       --muted-text: #555;
-      --card-bg: rgba(255, 255, 255, 0.9);
+      --card-bg: rgba(255, 255, 255, 0.85);
       --accent: #00bcd4;
     }
 
+    /* ============ TOÀN TRANG ============ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Nunito', sans-serif;
-      background: radial-gradient(circle at 20% 20%, #001f3f, #000000 70%);
-      background-size: 400% 400%;
-      animation: galaxyFlow 25s ease-in-out infinite;
       color: var(--text-color);
       overflow-y: auto;
       min-height: 100vh;
@@ -44,51 +42,69 @@
       transition: background 1s ease, color 0.5s ease;
     }
 
-    /* 🌠 Hiệu ứng chuyển động nền Galaxy */
+    /* ============ NỀN GALAXY ============ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, #001f3f, #000000 70%);
+      background-size: 400% 400%;
+      animation: galaxyFlow 20s ease-in-out infinite;
+      z-index: 0;
+    }
+
     @keyframes galaxyFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
-    /* Aurora layer 🌈 */
-    body::before {
+    /* ============ HIỆU ỨNG AURORA ============ */
+    body::after {
       content: '';
       position: fixed;
       inset: 0;
       background: linear-gradient(120deg,
-        rgba(0,255,255,0.12),
-        rgba(255,0,255,0.08),
-        rgba(0,128,255,0.12));
-      background-size: 200% 200%;
-      animation: auroraFlow 18s ease-in-out infinite;
+        rgba(0,255,255,0.2),
+        rgba(255,0,255,0.15),
+        rgba(0,128,255,0.25)
+      );
+      background-size: 300% 300%;
+      animation: aurora 15s ease-in-out infinite;
       z-index: 0;
-      pointer-events: none;
       mix-blend-mode: screen;
+      pointer-events: none;
     }
 
-    @keyframes auroraFlow {
-      0%, 100% { background-position: 0% 50%; }
+    @keyframes aurora {
+      0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Khi sáng thì Aurora đổi màu nhẹ */
+    /* ============ CHẾ ĐỘ SÁNG ============ */
     body.light-mode::before {
+      background: radial-gradient(circle at 20% 20%, #cce5ff, #f1f5f9 70%);
+      animation: galaxyFlow 20s ease-in-out infinite;
+    }
+
+    body.light-mode::after {
       background: linear-gradient(120deg,
-        rgba(0,200,255,0.15),
-        rgba(255,150,255,0.1),
-        rgba(0,255,200,0.15));
-      mix-blend-mode: lighten;
+        rgba(0,188,212,0.2),
+        rgba(255,105,180,0.15),
+        rgba(0,150,255,0.25)
+      );
+      mix-blend-mode: overlay;
     }
 
     #particles-js {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      z-index: 0;
+      z-index: 1;
     }
 
-    /* ====== KHUNG CHÍNH ====== */
+    /* ============ KHUNG CHÍNH ============ */
     .welcome-box {
       background-color: var(--card-bg);
       padding: 40px 30px;
@@ -96,7 +112,7 @@
       box-shadow: 0 0 25px var(--accent);
       text-align: center;
       margin-top: 80px;
-      z-index: 1;
+      z-index: 2;
       width: 90%;
       max-width: 600px;
       backdrop-filter: blur(10px);
@@ -106,13 +122,13 @@
     h1 {
       font-size: 2.5rem;
       color: var(--accent);
-      text-shadow: 0 0 15px var(--accent);
+      text-shadow: 0 0 10px var(--accent);
       animation: glow 2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 6px var(--accent); }
-      to { text-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent); }
+      from { text-shadow: 0 0 5px var(--accent); }
+      to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
     }
 
     #greeting {
@@ -120,6 +136,7 @@
       color: var(--subtext-color);
       font-weight: 600;
       text-shadow: 0 0 6px var(--accent);
+      transition: color 0.5s ease;
     }
 
     #clock {
@@ -135,7 +152,7 @@
       color: var(--text-color);
     }
 
-    /* ====== ICON ====== */
+    /* ============ ICON LIÊN HỆ ============ */
     .social-icons {
       display: flex;
       justify-content: center;
@@ -144,8 +161,7 @@
     }
 
     .social-icons a img {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       background: #fff;
       border-radius: 50%;
       padding: 4px;
@@ -158,99 +174,37 @@
       box-shadow: 0 0 15px var(--accent);
     }
 
-    /* ====== NÚT NHẠC / CHẾ ĐỘ ====== */
+    /* ============ NÚT NHẠC + CHẾ ĐỘ ============ */
     #music-toggle, #mode-toggle {
       position: fixed;
       width: 60px; height: 60px;
       border-radius: 50%;
       border: 2px solid var(--accent);
       background: var(--card-bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 0 10px var(--accent);
       cursor: pointer;
-      transition: background 0.4s, box-shadow 0.4s;
+      transition: 0.4s;
       z-index: 1000;
       backdrop-filter: blur(6px);
     }
 
     #music-toggle { bottom: 20px; right: 20px; }
     #mode-toggle { bottom: 20px; left: 20px; }
-
     #music-toggle img, #mode-toggle img { width: 28px; height: 28px; filter: invert(1); }
-
-    #music-toggle.playing {
-      background: var(--accent);
-      box-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent);
-      animation: rotate 5s linear infinite;
-    }
-
+    #music-toggle.playing { background: var(--accent); box-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent); animation: rotate 5s linear infinite; }
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-    /* ====== QUÀ ====== */
-    #gift-section {
-      margin: 100px auto;
-      text-align: center;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease;
-      width: 90%;
-      max-width: 400px;
-    }
-
+    /* ============ QUÀ ============ */
+    #gift-section { margin: 100px auto; text-align: center; opacity: 0; transform: translateY(30px); transition: all 1s ease; width: 90%; max-width: 400px; z-index: 2; }
     #gift-section.visible { opacity: 1; transform: translateY(0); }
-
-    .gift-caption {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: var(--text-color);
-    }
-
-    .gift-wrapper {
-      width: 140px; height: 140px;
-      margin: 0 auto;
-      cursor: pointer;
-    }
-
-    .gift-box {
-      width: 100%; height: 100%;
-      background: url('https://raw.githubusercontent.com/binhduy1402/ssh-key/main/gift.png') center/contain no-repeat;
-      animation: shake 2s infinite;
-    }
-
-    @keyframes shake {
-      0%,100%{transform:rotate(0deg);}
-      25%{transform:rotate(2deg);}
-      50%{transform:rotate(-2deg);}
-      75%{transform:rotate(2deg);}
-    }
-
-    #reward {
-      margin-top: 20px;
-      font-size: 1.2rem;
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 0.5s;
-      background: var(--card-bg);
-      padding: 15px 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px var(--accent);
-      color: var(--text-color);
-    }
-
+    .gift-caption { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: var(--text-color); }
+    .gift-wrapper { width: 140px; height: 140px; margin: 0 auto; cursor: pointer; position: relative; }
+    .gift-box { width: 100%; height: 100%; background: url('https://raw.githubusercontent.com/binhduy1402/ssh-key/main/gift.png') center/contain no-repeat; animation: shake 2s infinite; }
+    @keyframes shake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(2deg);} 50%{transform:rotate(-2deg);} 75%{transform:rotate(2deg);} }
+    #reward { margin-top: 20px; font-size: 1.2rem; opacity: 0; transform: scale(0.8); transition: all 0.5s; background: var(--card-bg); padding: 15px 20px; border-radius: 20px; box-shadow: 0 0 10px var(--accent); text-align: center; color: var(--text-color); }
     #reward.show { opacity: 1; transform: scale(1); }
-
-    #message-box {
-      color: #ff7070;
-      font-size: 1rem;
-      margin-top: 15px;
-      font-weight: 600;
-      opacity: 0;
-      transition: opacity 0.5s;
-    }
-
+    #message-box { color: #ff7070; font-size: 1rem; margin-top: 15px; font-weight: 600; opacity: 0; transition: opacity 0.5s; }
     #message-box.show { opacity: 1; }
 
     #scroll-hint {
@@ -261,6 +215,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: glow 1.5s ease-in-out infinite alternate;
+      white-space: pre-wrap;
     }
   </style>
 </head>
@@ -277,16 +232,16 @@
       <a href="https://www.facebook.com/binhduy.nguyenpham.92" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg"></a>
       <a href="https://www.instagram.com/_npbduy.14/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg"></a>
       <a href="https://zalo.me/0355563406" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@14.12.3/icons/zalo.svg"></a>
-      <a href="https://t.me/binhduy1402" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg" alt="Telegram"></a>
-      <a href="https://discord.com/users/897041921665564682" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg" alt="Discord"></a>
-      <a href="https://www.linkedin.com/in/nguy%E1%BB%85n-ph%E1%BA%A1m-b%C3%ACnh-duy-ba647b372" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"></a>
-      <a href="mailto:binhduy140203@gmail.com" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg" alt="Gmail"></a>
+      <a href="https://t.me/binhduy1402" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/telegram.svg"></a>
+      <a href="https://discord.com/users/897041921665564682" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg"></a>
+      <a href="https://www.linkedin.com/in/nguy%E1%BB%85n-ph%E1%BA%A1m-b%C3%ACnh-duy-ba647b372" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"></a>
+      <a href="mailto:binhduy140203@gmail.com" target="_blank"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg"></a>
     </div>
     <div id="scroll-hint"></div>
   </div>
 
   <div id="gift-section">
-    <div class="gift-caption">Có món quà nhỏ cho bạn nè! Mở ra đi 😁</div>
+    <div class="gift-caption">Có món quà nhỏ cho bạn nè! Mở ra đi 😁 </div>
     <div class="gift-wrapper" id="gift-wrapper">
       <div class="gift-box"></div>
     </div>
@@ -295,7 +250,7 @@
   </div>
 
   <div id="music-toggle" title="Bật/tắt nhạc">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@14.12.3/icons/applemusic.svg" alt="Nốt nhạc" />
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@14.12.3/icons/applemusic.svg" alt="Music" />
   </div>
   <div id="mode-toggle" title="Chuyển sáng/tối">
     <img id="mode-icon" src="https://cdn-icons-png.flaticon.com/512/169/169367.png" alt="Mode">
