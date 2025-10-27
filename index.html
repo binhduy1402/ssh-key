@@ -427,22 +427,46 @@
     });
 
     /* 🌌 Particles nền */
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 60 },
-        size: { value: 2 },
-        color: { value: "#ffd700" },
-        line_linked: { enable: true, distance: 100, color: "#ffd700", opacity: 0.4, width: 1 },
-        move: { enable: true, speed: 2 }
+function initParticles(isLightMode = false) {
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 60 },
+      size: { value: 2 },
+      color: { value: isLightMode ? "#00bcd4" : "#ffd700" }, // xanh sáng khi light mode
+      line_linked: {
+        enable: true,
+        distance: 100,
+        color: isLightMode ? "#00bcd4" : "#ffd700",
+        opacity: 0.4,
+        width: 1
       },
-      interactivity: {
-        detect_on: "canvas",
-        events: {
-          onhover: { enable: true, mode: "repulse" },
-          onclick: { enable: true, mode: "push" }
-        }
+      move: { enable: true, speed: 2 }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { enable: true, mode: "repulse" },
+        onclick: { enable: true, mode: "push" }
       }
-    });
+    }
+  });
+}
+
+// khởi tạo ban đầu
+initParticles(false);
+
+// khi đổi chế độ sáng/tối
+modeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("light-mode");
+  const isLight = document.body.classList.contains("light-mode");
+  modeIcon.src = isLight
+    ? "https://cdn-icons-png.flaticon.com/512/169/169367.png"
+    : "https://cdn-icons-png.flaticon.com/512/869/869869.png";
+
+  // xóa canvas cũ trước khi tạo mới
+  document.querySelector("#particles-js canvas")?.remove();
+  initParticles(isLight);
+});
   </script>
 </body>
 </html>
