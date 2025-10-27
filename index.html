@@ -8,21 +8,22 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <style>
+    /* 🌌 ====== MÀU BIẾN CHỦ ĐỀ ====== */
     :root {
       --bg-color: #000;
       --text-color: #ffffff;
       --subtext-color: #aeefff;
       --muted-text: #dddddd;
-      --card-bg: #1a1a1a;
+      --card-bg: rgba(20, 20, 30, 0.8);
       --accent: #00ffff;
     }
 
     body.light-mode {
-      --bg-color: #f1f5f9;
+      --bg-color: #eaf4ff;
       --text-color: #111;
-      --subtext-color: #006b75;
+      --subtext-color: #007b83;
       --muted-text: #555;
-      --card-bg: #ffffff;
+      --card-bg: rgba(255, 255, 255, 0.9);
       --accent: #00bcd4;
     }
 
@@ -30,7 +31,9 @@
 
     body {
       font-family: 'Nunito', sans-serif;
-      background-color: var(--bg-color);
+      background: radial-gradient(circle at 20% 20%, #001f3f, #000000 70%);
+      background-size: 400% 400%;
+      animation: galaxyFlow 25s ease-in-out infinite;
       color: var(--text-color);
       overflow-y: auto;
       min-height: 100vh;
@@ -38,41 +41,78 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      transition: background-color 0.5s, color 0.5s;
+      transition: background 1s ease, color 0.5s ease;
     }
 
-    #particles-js { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    /* 🌠 Hiệu ứng chuyển động nền Galaxy */
+    @keyframes galaxyFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
+    /* Aurora layer 🌈 */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(120deg,
+        rgba(0,255,255,0.12),
+        rgba(255,0,255,0.08),
+        rgba(0,128,255,0.12));
+      background-size: 200% 200%;
+      animation: auroraFlow 18s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes auroraFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* Khi sáng thì Aurora đổi màu nhẹ */
+    body.light-mode::before {
+      background: linear-gradient(120deg,
+        rgba(0,200,255,0.15),
+        rgba(255,150,255,0.1),
+        rgba(0,255,200,0.15));
+      mix-blend-mode: lighten;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    /* ====== KHUNG CHÍNH ====== */
     .welcome-box {
       background-color: var(--card-bg);
       padding: 40px 30px;
       border-radius: 20px;
-      box-shadow: 0 4px 20px var(--accent);
+      box-shadow: 0 0 25px var(--accent);
       text-align: center;
       margin-top: 80px;
       z-index: 1;
       width: 90%;
       max-width: 600px;
-      transition: background-color 0.5s, box-shadow 0.5s;
+      backdrop-filter: blur(10px);
+      transition: all 0.6s ease;
     }
 
     h1 {
       font-size: 2.5rem;
       color: var(--accent);
-      text-shadow: 0 0 10px var(--accent);
+      text-shadow: 0 0 15px var(--accent);
       animation: glow 2s ease-in-out infinite alternate;
     }
 
     @keyframes glow {
-      from { text-shadow: 0 0 5px var(--accent); }
-      to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
-    }
-
-    #greeting, #clock, #intro {
-      font-family: 'Nunito', sans-serif;
-      font-weight: 500;
-      letter-spacing: 0.3px;
-      transition: color 0.5s, text-shadow 0.5s;
+      from { text-shadow: 0 0 6px var(--accent); }
+      to { text-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent); }
     }
 
     #greeting {
@@ -90,12 +130,12 @@
 
     #intro {
       margin-top: 20px;
-      font-family: 'Nunito', sans-serif;
       font-size: 1.05rem;
       line-height: 1.6;
       color: var(--text-color);
     }
 
+    /* ====== ICON ====== */
     .social-icons {
       display: flex;
       justify-content: center;
@@ -110,15 +150,18 @@
       border-radius: 50%;
       padding: 4px;
       filter: drop-shadow(0 0 5px var(--accent));
-      transition: transform 0.3s;
+      transition: transform 0.3s, box-shadow 0.3s;
     }
 
-    .social-icons a:hover img { transform: scale(1.2); }
+    .social-icons a:hover img {
+      transform: scale(1.2);
+      box-shadow: 0 0 15px var(--accent);
+    }
 
+    /* ====== NÚT NHẠC / CHẾ ĐỘ ====== */
     #music-toggle, #mode-toggle {
       position: fixed;
-      width: 60px;
-      height: 60px;
+      width: 60px; height: 60px;
       border-radius: 50%;
       border: 2px solid var(--accent);
       background: var(--card-bg);
@@ -127,27 +170,25 @@
       justify-content: center;
       box-shadow: 0 0 10px var(--accent);
       cursor: pointer;
-      transition: background-color 0.3s, box-shadow 0.3s, border-color 0.3s;
+      transition: background 0.4s, box-shadow 0.4s;
       z-index: 1000;
+      backdrop-filter: blur(6px);
     }
 
     #music-toggle { bottom: 20px; right: 20px; }
     #mode-toggle { bottom: 20px; left: 20px; }
 
-    #music-toggle img, #mode-toggle img {
-      width: 28px;
-      height: 28px;
-      filter: invert(1);
-    }
+    #music-toggle img, #mode-toggle img { width: 28px; height: 28px; filter: invert(1); }
 
     #music-toggle.playing {
       background: var(--accent);
-      box-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent);
+      box-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent);
       animation: rotate 5s linear infinite;
     }
 
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+    /* ====== QUÀ ====== */
     #gift-section {
       margin: 100px auto;
       text-align: center;
@@ -168,16 +209,13 @@
     }
 
     .gift-wrapper {
-      width: 140px;
-      height: 140px;
+      width: 140px; height: 140px;
       margin: 0 auto;
       cursor: pointer;
-      position: relative;
     }
 
     .gift-box {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       background: url('https://raw.githubusercontent.com/binhduy1402/ssh-key/main/gift.png') center/contain no-repeat;
       animation: shake 2s infinite;
     }
@@ -199,7 +237,6 @@
       padding: 15px 20px;
       border-radius: 20px;
       box-shadow: 0 0 10px var(--accent);
-      text-align: center;
       color: var(--text-color);
     }
 
@@ -224,16 +261,9 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       animation: glow 1.5s ease-in-out infinite alternate;
-      white-space: pre-wrap;
-    }
-
-    /* Fix lỗi icon mặt trời tràn màn */
-    body.light-mode {
-      background-image: none !important;
     }
   </style>
 </head>
-
 <body>
   <div id="particles-js"></div>
   <audio id="bgm" loop preload="auto"></audio>
@@ -256,7 +286,7 @@
   </div>
 
   <div id="gift-section">
-    <div class="gift-caption">Có món quả nhỏ cho bạn nè! Mở ra đi 😁 </div>
+    <div class="gift-caption">Có món quà nhỏ cho bạn nè! Mở ra đi 😁</div>
     <div class="gift-wrapper" id="gift-wrapper">
       <div class="gift-box"></div>
     </div>
