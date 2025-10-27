@@ -7,6 +7,7 @@
   <link rel="icon" type="image/png" href="https://github.com/binhduy1402/ssh-key/blob/main/logo.png?raw=true" />
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
   <style>
     /* ============ MÀU CHỦ ĐỀ ============ */
     :root {
@@ -17,7 +18,6 @@
       --card-bg: rgba(20, 20, 30, 0.8);
       --accent: #00ffff;
     }
-
     body.light-mode {
       --bg-color: #eaf4ff;
       --text-color: #111;
@@ -27,18 +27,17 @@
       --accent: #00bcd4;
     }
 
-    /* ============ TOÀN TRANG ============ */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Nunito', sans-serif;
       color: var(--text-color);
-      overflow-y: auto;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      overflow-x: hidden;
       transition: background 1s ease, color 0.5s ease;
     }
 
@@ -52,7 +51,6 @@
       animation: galaxyFlow 20s ease-in-out infinite;
       z-index: 0;
     }
-
     @keyframes galaxyFlow {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -65,7 +63,7 @@
       position: fixed;
       inset: 0;
       background: linear-gradient(120deg,
-        rgba(0,255,255,0.2),
+        rgba(0,255,255,0.20),
         rgba(255,0,255,0.15),
         rgba(0,128,255,0.25)
       );
@@ -75,7 +73,6 @@
       mix-blend-mode: screen;
       pointer-events: none;
     }
-
     @keyframes aurora {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -87,26 +84,25 @@
       background: radial-gradient(circle at 20% 20%, #cce5ff, #f1f5f9 70%);
       animation: galaxyFlow 20s ease-in-out infinite;
     }
-
     body.light-mode::after {
       background: linear-gradient(120deg,
-        rgba(0,188,212,0.2),
+        rgba(0,188,212,0.20),
         rgba(255,105,180,0.15),
         rgba(0,150,255,0.25)
       );
       mix-blend-mode: overlay;
     }
 
+    /* Canvas hạt */
     #particles-js {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
+      inset: 0;
       z-index: 1;
     }
 
-    /* ============ KHUNG CHÍNH ============ */
+    /* ============ HỘP CHÍNH ============ */
     .welcome-box {
-      background-color: var(--card-bg);
+      background: var(--card-bg);
       padding: 40px 30px;
       border-radius: 20px;
       box-shadow: 0 0 25px var(--accent);
@@ -118,19 +114,16 @@
       backdrop-filter: blur(10px);
       transition: all 0.6s ease;
     }
-
     h1 {
       font-size: 2.5rem;
       color: var(--accent);
       text-shadow: 0 0 10px var(--accent);
       animation: glow 2s ease-in-out infinite alternate;
     }
-
     @keyframes glow {
       from { text-shadow: 0 0 5px var(--accent); }
       to { text-shadow: 0 0 20px var(--accent), 0 0 30px var(--accent); }
     }
-
     #greeting {
       font-size: 1.2rem;
       color: var(--subtext-color);
@@ -138,13 +131,11 @@
       text-shadow: 0 0 6px var(--accent);
       transition: color 0.5s ease;
     }
-
     #clock {
       font-family: 'Quicksand', sans-serif;
       font-size: 1rem;
       color: var(--muted-text);
     }
-
     #intro {
       margin-top: 20px;
       font-size: 1.05rem;
@@ -159,7 +150,6 @@
       gap: 20px;
       margin-top: 20px;
     }
-
     .social-icons a img {
       width: 36px; height: 36px;
       background: #fff;
@@ -168,13 +158,12 @@
       filter: drop-shadow(0 0 5px var(--accent));
       transition: transform 0.3s, box-shadow 0.3s;
     }
-
     .social-icons a:hover img {
       transform: scale(1.2);
       box-shadow: 0 0 15px var(--accent);
     }
 
-    /* ============ NÚT NHẠC + CHẾ ĐỘ ============ */
+    /* ============ NÚT NHẠC + CHUYỂN MODE ============ */
     #music-toggle, #mode-toggle {
       position: fixed;
       width: 60px; height: 60px;
@@ -188,26 +177,70 @@
       z-index: 1000;
       backdrop-filter: blur(6px);
     }
-
+    #music-toggle:hover, #mode-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--accent), 0 0 25px var(--accent);
+    }
     #music-toggle { bottom: 20px; right: 20px; }
-    #mode-toggle { bottom: 20px; left: 20px; }
+    #mode-toggle  { bottom: 20px; left: 20px;  }
     #music-toggle img, #mode-toggle img { width: 28px; height: 28px; filter: invert(1); }
-    #music-toggle.playing { background: var(--accent); box-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent); animation: rotate 5s linear infinite; }
+
+    #music-toggle.playing {
+      background: var(--accent);
+      box-shadow: 0 0 25px var(--accent), 0 0 40px var(--accent);
+      animation: rotate 5s linear infinite;
+    }
     @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
+    /* ⚪ FIX cho LIGHT MODE: icon đậm, nền xám nhạt; khi playing icon trắng */
+    body.light-mode #music-toggle { background: rgba(0,0,0,0.05); box-shadow: 0 0 8px var(--accent); }
+    body.light-mode #music-toggle img { filter: invert(0); }
+    body.light-mode #music-toggle.playing { background: var(--accent); box-shadow: 0 0 15px var(--accent); }
+    body.light-mode #music-toggle.playing img { filter: invert(1); }
+
     /* ============ QUÀ ============ */
-    #gift-section { margin: 100px auto; text-align: center; opacity: 0; transform: translateY(30px); transition: all 1s ease; width: 90%; max-width: 400px; z-index: 2; }
+    #gift-section {
+      margin: 100px auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1s ease;
+      width: 90%;
+      max-width: 400px;
+      z-index: 2;
+    }
     #gift-section.visible { opacity: 1; transform: translateY(0); }
     .gift-caption { font-size: 1.2rem; font-weight: bold; margin-bottom: 20px; color: var(--text-color); }
     .gift-wrapper { width: 140px; height: 140px; margin: 0 auto; cursor: pointer; position: relative; }
-    .gift-box { width: 100%; height: 100%; background: url('https://raw.githubusercontent.com/binhduy1402/ssh-key/main/gift.png') center/contain no-repeat; animation: shake 2s infinite; }
-    @keyframes shake { 0%,100%{transform:rotate(0deg);} 25%{transform:rotate(2deg);} 50%{transform:rotate(-2deg);} 75%{transform:rotate(2deg);} }
-    #reward { margin-top: 20px; font-size: 1.2rem; opacity: 0; transform: scale(0.8); transition: all 0.5s; background: var(--card-bg); padding: 15px 20px; border-radius: 20px; box-shadow: 0 0 10px var(--accent); text-align: center; color: var(--text-color); }
+    .gift-box {
+      width: 100%; height: 100%;
+      background: url('https://raw.githubusercontent.com/binhduy1402/ssh-key/main/gift.png') center/contain no-repeat;
+      animation: shake 2s infinite;
+    }
+    @keyframes shake {
+      0%,100%{transform:rotate(0deg);}
+      25%{transform:rotate(2deg);}
+      50%{transform:rotate(-2deg);}
+      75%{transform:rotate(2deg);}
+    }
+    #reward {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.5s;
+      background: var(--card-bg);
+      padding: 15px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px var(--accent);
+      text-align: center;
+      color: var(--text-color);
+    }
     #reward.show { opacity: 1; transform: scale(1); }
     #message-box { color: #ff7070; font-size: 1rem; margin-top: 15px; font-weight: 600; opacity: 0; transition: opacity 0.5s; }
     #message-box.show { opacity: 1; }
 
-    #scroll-hint {
+    #scroll-hint{
       margin-top: 20px;
       font-size: 1.1rem;
       font-weight: bold;
@@ -241,10 +274,8 @@
   </div>
 
   <div id="gift-section">
-    <div class="gift-caption">Có món quà nhỏ cho bạn nè! Mở ra đi 😁 </div>
-    <div class="gift-wrapper" id="gift-wrapper">
-      <div class="gift-box"></div>
-    </div>
+    <div class="gift-caption">Có món quà nhỏ cho bạn nè! Mở ra đi 😁</div>
+    <div class="gift-wrapper" id="gift-wrapper"><div class="gift-box"></div></div>
     <div id="reward"></div>
     <div id="message-box"></div>
   </div>
@@ -257,7 +288,7 @@
   </div>
 
   <script>
-    // 🎵 Nhạc nền random
+    /* 🎵 Nhạc nền random */
     window.onload = function() {
       const audio = document.getElementById("bgm");
       const musicFiles = [
@@ -284,29 +315,29 @@
       });
 
       document.body.addEventListener("click", function initPlay() {
-        audio.play().then(() => { toggleBtn.classList.add("playing"); })
-        .catch(() => {});
+        audio.play().then(() => { toggleBtn.classList.add("playing"); }).catch(() => {});
         document.body.removeEventListener("click", initPlay);
       });
     };
 
-    // 🌗 Chuyển chế độ sáng tối
+    /* 🌗 Chuyển chế độ sáng/tối */
     const modeToggle = document.getElementById("mode-toggle");
     const modeIcon = document.getElementById("mode-icon");
     modeToggle.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
       const isLight = document.body.classList.contains("light-mode");
       modeIcon.src = isLight
-        ? "https://cdn-icons-png.flaticon.com/512/169/169367.png" // mặt trăng
-        : "https://cdn-icons-png.flaticon.com/512/869/869869.png"; // mặt trời
+        ? "https://cdn-icons-png.flaticon.com/512/169/169367.png" // moon
+        : "https://cdn-icons-png.flaticon.com/512/869/869869.png"; // sun
     });
 
-    // ⏰ Giờ & lời chào
+    /* ⏰ Giờ & lời chào */
     function updateClockAndGreeting() {
       const now = new Date();
       const hours = now.getHours();
       const timeString = now.toLocaleTimeString('vi-VN');
       document.getElementById("clock").textContent = "🕒 " + timeString;
+
       let greeting = "Chào bạn!";
       if (hours >= 5 && hours < 11) greeting = "Buổi sáng tràn đầy năng lượng nhá ! ☀️";
       else if (hours >= 11 && hours < 17) greeting = "Buổi chiều vui vẻ nha! 🌤";
@@ -317,7 +348,7 @@
     setInterval(updateClockAndGreeting, 1000);
     updateClockAndGreeting();
 
-    // ✨ Gõ chữ intro
+    /* ✨ Gõ chữ intro */
     const introText = [
       "Hello, Bình Duy đây !",
       "Tìm được đến đây thì soi cũng dữ dội rùi á",
@@ -329,13 +360,9 @@
       if (line < introText.length) {
         if (char < introText[line].length) {
           introDiv.innerHTML += introText[line].charAt(char);
-          char++;
-          setTimeout(typeLine, 40);
+          char++; setTimeout(typeLine, 40);
         } else {
-          introDiv.innerHTML += "<br/>";
-          line++;
-          char = 0;
-          setTimeout(typeLine, 400);
+          introDiv.innerHTML += "<br/>"; line++; char = 0; setTimeout(typeLine, 400);
         }
       }
     }
@@ -347,14 +374,13 @@
     function typeScrollHint() {
       if (scrollChar < scrollHintText.length) {
         scrollHintDiv.innerHTML += scrollHintText.charAt(scrollChar);
-        scrollChar++;
-        setTimeout(typeScrollHint, 50);
+        scrollChar++; setTimeout(typeScrollHint, 50);
       }
     }
     const totalTypingTime = introText.reduce((sum, line) => sum + line.length * 40 + 400, 0);
     setTimeout(typeScrollHint, totalTypingTime);
 
-    // 🎁 Quà tặng
+    /* 🎁 Quà tặng */
     const giftWrapper = document.getElementById("gift-wrapper");
     const rewardDiv = document.getElementById("reward");
     const messageBox = document.getElementById("message-box");
@@ -380,14 +406,14 @@
       }
     });
 
-    // 🪄 Hiện phần quà khi scroll
+    /* 🪄 Hiện phần quà khi scroll */
     window.addEventListener("scroll", () => {
       const gift = document.getElementById("gift-section");
       const rect = gift.getBoundingClientRect();
       if (rect.top < window.innerHeight - 100) gift.classList.add("visible");
     });
 
-    // 🌌 Particles nền
+    /* 🌌 Particles nền */
     particlesJS("particles-js", {
       particles: {
         number: { value: 60 },
