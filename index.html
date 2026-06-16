@@ -632,6 +632,14 @@ chatClose.addEventListener("click", () => {
     chatContainer.classList.remove("show");
 });
 
+function linkify(text){
+
+    return text.replace(
+        /(https?:\/\/[^\s]+)/g,
+        '<a href="$1" target="_blank">$1</a>'
+    );
+
+}
 
 function addMessage(text, type){
 
@@ -641,8 +649,7 @@ function addMessage(text, type){
     msg.className =
     `msg ${type}-msg`;
 
-    msg.textContent =
-    text;
+    msg.innerHTML = linkify(message);
 
     chatMessages.appendChild(msg);
 
