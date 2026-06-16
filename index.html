@@ -380,7 +380,9 @@
       right:2.5%;
       bottom:90px;
   }
-  #chat-close{
+}
+
+    #chat-close{
     background: transparent;
     border: none;
     color: var(--accent);
@@ -399,8 +401,6 @@
     align-items:center;
     justify-content:space-between;
     padding:15px;
-}
-
 }
   </style>
 </head>
@@ -624,16 +624,14 @@ document.getElementById("chat-input");
 const sendBtn =
 document.getElementById("send-btn");
 
-/* mở đóng chat */
-
 chatToggle.addEventListener("click", () => {
     chatContainer.classList.toggle("show");
+});
 
 chatClose.addEventListener("click", () => {
     chatContainer.classList.remove("show");
 });
 
-/* thêm tin nhắn */
 
 function addMessage(text, type){
 
