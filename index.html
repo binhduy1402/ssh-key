@@ -650,51 +650,54 @@ function addMessage(text, type){
     chatMessages.scrollHeight;
 }
 
-/* chatbot demo */
+const WEBHOOK_URL =
+"https://duynpb.app.n8n.cloud/webhook-test/chatbot";
 
-function botReply(message){
+async function sendMessage(){
 
-    const text =
-    message.toLowerCase();
+const message =
+chatInput.value.trim();
 
-    if(text.includes("hello") || text.includes("hi")){
-        return "Xin chào 👋";
-    }
+if(!message) return;
 
-    if(text.includes("facebook")){
-        return "Facebook nằm ở phía trên nha 😁";
-    }
+addMessage(message, "user");
 
-    if(text.includes("zalo")){
-        return "Zalo của Duy: 0355563406";
-    }
+chatInput.value = "";
 
-    if(text.includes("discord")){
-        return "Discord cũng có trên trang luôn nhé 😎";
-    }
+try {
 
-    return "Mình chưa có AI đâu 😅 Duy đang xây dựng chatbot.";
+    const response = await fetch(
+        WEBHOOK_URL,
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: message
+            })
+        }
+    );
+
+    const data = await response.json();
+
+    console.log("N8N Response:", data);
+
+    addMessage(
+        JSON.stringify(data),
+        "bot"
+    );
+
+} catch(error) {
+
+    console.error(error);
+
+    addMessage(
+        "Không kết nối được chatbot",
+        "bot"
+    );
 }
 
-function sendMessage(){
-
-    const message =
-    chatInput.value.trim();
-
-    if(!message) return;
-
-    addMessage(message, "user");
-
-    chatInput.value = "";
-
-    setTimeout(() => {
-
-        addMessage(
-            botReply(message),
-            "bot"
-        );
-
-    }, 500);
 }
 
 sendBtn.addEventListener(
