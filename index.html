@@ -380,6 +380,26 @@
       right:2.5%;
       bottom:90px;
   }
+  #chat-close{
+    background: transparent;
+    border: none;
+    color: var(--accent);
+    font-size: 20px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#chat-close:hover{
+    transform: scale(1.2);
+    color: #ff4d4d;
+}
+
+.chat-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:15px;
+}
 
 }
   </style>
@@ -592,6 +612,9 @@ document.getElementById("chat-toggle");
 const chatContainer =
 document.getElementById("chat-container");
 
+const chatClose =
+document.getElementById("chat-close");
+
 const chatMessages =
 document.getElementById("chat-messages");
 
@@ -605,6 +628,9 @@ document.getElementById("send-btn");
 
 chatToggle.addEventListener("click", () => {
     chatContainer.classList.toggle("show");
+
+chatClose.addEventListener("click", () => {
+    chatContainer.classList.remove("show");
 });
 
 /* thêm tin nhắn */
