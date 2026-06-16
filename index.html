@@ -679,14 +679,14 @@ try {
         }
     );
 
-    const data = await response.json();
+const data = await response.json();
 
-    console.log("N8N Response:", data);
+console.log(data);
 
-    addMessage(
-        JSON.stringify(data),
-        "bot"
-    );
+addMessage(
+    data.reply || data.output || "Không có phản hồi",
+    "bot"
+);
 
 } catch(error) {
 
