@@ -341,6 +341,22 @@
   color:#fff;
 }
 
+.welcome-chat{
+  background: linear-gradient(
+      135deg,
+      rgba(0,255,255,.12),
+      rgba(255,255,255,.05)
+  );
+  border: 1px solid rgba(0,255,255,.2);
+  box-shadow: 0 0 10px rgba(0,255,255,.15);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  color: #fff;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
 .chat-input{
   display:flex;
   padding:10px;
@@ -454,11 +470,15 @@
     </button>
 </div>
 
-  <div id="chat-messages">
-      <div class="msg bot-msg">
-          Xin chào 👋 Tôi có thể hỗ trợ bạn các thông tin liên quan đến Bình Duy !
-      </div>
-  </div>
+<div id="chat-messages">
+
+    <div class="welcome-chat">
+        👋 <strong>Xin chào!</strong><br>
+        Tôi là trợ lý AI của Bình Duy.<br>
+        Hãy đặt câu hỏi để tìm hiểu thêm nhé.
+    </div>
+
+</div>
 
   <div class="chat-input">
       <input
