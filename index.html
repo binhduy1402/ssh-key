@@ -690,9 +690,8 @@ try {
 
 const data = await response.json();
 
-console.log("AI Reply:", JSON.stringify(data.reply));
-
-console.log(data);
+console.log("OUTPUT =", JSON.stringify(data.output));
+console.log("FULL =", data);
 
 addMessage(
     data.reply || data.output || "Không có phản hồi",
