@@ -690,6 +690,8 @@ try {
 
 const data = await response.json();
 
+console.log("AI Reply:", JSON.stringify(data.reply));
+
 console.log(data);
 
 addMessage(
