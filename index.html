@@ -326,6 +326,7 @@
   padding:10px 14px;
   border-radius:14px;
   word-wrap:break-word;
+  white-space: pre-wrap;
 }
 
 .user-msg{
@@ -649,7 +650,8 @@ function addMessage(text, type){
     msg.className =
     `msg ${type}-msg`;
 
-    msg.innerHTML = linkify(text);
+    msg.innerHTML =
+    linkify(text).replace(/\n/g, "<br>");
 
     chatMessages.appendChild(msg);
 
