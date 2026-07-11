@@ -679,6 +679,13 @@ function addMessage(text, type){
     chatMessages.scrollHeight;
 }
 
+let sessionId = localStorage.getItem("chat_session");
+
+if (!sessionId) {
+    sessionId = crypto.randomUUID();
+    localStorage.setItem("chat_session", sessionId);
+}
+    
 const WEBHOOK_URL =
 "https://duynpb1.app.n8n.cloud/webhook/chatbot";
 
@@ -702,9 +709,10 @@ try {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                message: message
-            })
+          body: JSON.stringify({
+              message: message,
+              sessionId: sessionId
+          })
         }
     );
 
